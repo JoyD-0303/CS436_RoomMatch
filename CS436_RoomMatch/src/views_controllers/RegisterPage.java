@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import model.DatabaseManager;
 
 public class RegisterPage {
 	private TextField usernameTextField = new TextField();
@@ -55,9 +54,7 @@ public class RegisterPage {
 	private class RegisterHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent arg0) {
-			controller.register(usernameTextField.getText(), passwordTextField.getText());
-			information.setText("Account already exists");
-			passwordTextField.setText("");
+			information.setText("Registration not yet implemented");
 		}
 	}
 	

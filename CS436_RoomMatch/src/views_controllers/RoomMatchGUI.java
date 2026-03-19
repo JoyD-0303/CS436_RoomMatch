@@ -59,7 +59,7 @@ public class RoomMatchGUI extends Application {
 	
 	// Temporary login logic for Iteration 1 using hardcoded credentials.
 	// This will be replaced with SQLite-based authentication in future iterations.
-	void attemptLogin(String username, String password) {
+	boolean attemptLogin(String username, String password) {
 		if (username.equals("Smith") && password.equals("password")) {
 
 			stage.setWidth(500);
@@ -68,10 +68,12 @@ public class RoomMatchGUI extends Application {
 
 			userProfile.login(username);
 
-			// go to preference page instead of main page
 			PreferencePage preferencePage = new PreferencePage(this, userProfile);
 			setToPage(preferencePage.initializePanel());
+
+			return true;
 		}
+		return false;
 	}
 	
 	private void setViewTo(Observer newView) {

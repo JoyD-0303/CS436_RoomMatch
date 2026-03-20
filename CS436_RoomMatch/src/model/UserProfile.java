@@ -14,6 +14,12 @@ public class UserProfile {
 	    guests = guest;
 	}
 	
+	public void setPreferences(java.util.List<String> preferences) {
+		sleepSchedule = preferences.get(0);
+		cleanliness = preferences.get(1);
+		guests = preferences.get(2);
+	}
+	
 	public String getSleepSchedule() {
 		return sleepSchedule;
 	}

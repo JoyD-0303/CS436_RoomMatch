@@ -74,8 +74,8 @@ public class RoomMatchGUI extends Application {
 			stage.setHeight(350);
 			stage.setTitle("Set Preferences");
 			userProfile.login(username);
-			PreferencePage preferencePage = new PreferencePage(this, userProfile);
-			setToPage(preferencePage.initializePanel(), 500, 400);
+			MainPageView mainPage = new MainPageView(this, userProfile);
+			setToPage(mainPage.initializePanel(), 500, 400);
 			return true;
 		}
 		return false;
@@ -107,6 +107,11 @@ public class RoomMatchGUI extends Application {
 		db.savePreferences(currentUserId, sleep, cleanliness, guests);
 	}
 
+	public void getPreferences() {
+		java.util.List<String> preferences = db.getPreferences(currentUserId);
+		userProfile.setPreferences(preferences);
+	}
+	
 	public java.util.List<model.UserProfile> getMatches() {
     	return db.getAllProfilesExcept(currentUserId);
 	}

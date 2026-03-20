@@ -1,5 +1,7 @@
 package views_controllers;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -13,7 +15,7 @@ public class MainPageView {
 	RoomMatchGUI controller;
 	UserProfile userProfile;
 	
-	public MainPageView(UserProfile user, RoomMatchGUI source) {
+	public MainPageView(RoomMatchGUI source, UserProfile user) {
 		controller = source;
 		userProfile = user;
 	}
@@ -21,16 +23,16 @@ public class MainPageView {
 	public BorderPane initializePanel() {
 		BorderPane window = new BorderPane();
 		
-		/*
-		this.setTop(null);
-		this.setCenter(null);
-		*/
+		controller.getPreferences();
 
-		MenuItem option1 = new MenuItem("option1");
+		MenuItem option1 = new MenuItem("set preferences");
 		MenuItem option2 = new MenuItem("option2");
 		MenuItem option3 = new MenuItem("option3");
 		Menu options = new Menu("Options");
 		options.getItems().addAll(option1, option2, option3);
+		
+		EventHandler<ActionEvent> preferencesOption = new HandleSetPreferencesOption();
+		option1.setOnAction(preferencesOption);
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(options);
@@ -60,5 +62,14 @@ public class MainPageView {
 		window.setCenter(infoBox);
 		
 		return window;
+	}
+	
+	private class HandleSetPreferencesOption implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent arg0) {
+			PreferencePage preferencePage = new PreferencePage(controller, userProfile);
+			BorderPane window = preferencePage.initializePanel();
+			controller.setToPage(window, 500, 400);
+		}
 	}
 }

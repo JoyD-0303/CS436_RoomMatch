@@ -108,6 +108,24 @@ public class DatabaseManager {
 				System.err.println(e.getMessage());
 			}
 		}
+		
+		public java.util.List<String> getPreferences(int userId) {
+			java.util.List<String> userPreferences = new java.util.ArrayList<>();
+			String sql = "SELECT * FROM preferences WHERE user_id='" + userId + "'";
+			try (Connection connection = DriverManager.getConnection(URL); 
+				 PreparedStatement stmt = connection.prepareStatement(sql)) {
+				ResultSet rs = stmt.executeQuery();
+				while(rs.next()) {
+					userPreferences.add(rs.getString("sleep_schedule"));
+					userPreferences.add(rs.getString("cleanliness"));
+					userPreferences.add(rs.getString("guests"));
+				}
+			} catch (SQLException e) {
+				System.err.println(e.getMessage());
+			}
+			
+			return userPreferences;
+		}
 
 		// For getting a list of everyone else's profiles except the user requesting a match, for comparing
 		public java.util.List<UserProfile> getAllProfilesExcept(int excludeUserId) {

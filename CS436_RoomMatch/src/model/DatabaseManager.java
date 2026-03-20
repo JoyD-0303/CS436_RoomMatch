@@ -52,6 +52,7 @@ public class DatabaseManager {
             }
         }
         
+
         // TODO Needs Salting and Hashing for security
         /**
          * Used to register a new user into the database. 

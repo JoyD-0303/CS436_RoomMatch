@@ -26,12 +26,15 @@ public class RoomMatchGUI extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		
+		
 		//Initialize database
 		db.init();
 		// Add admin account
 		db.seedAdmin();
 		// Show what's in the db
 		db.printAllData();
+		
+		
 		
 		this.stage = stage;
 		stage.setTitle("Login");
@@ -74,8 +77,15 @@ public class RoomMatchGUI extends Application {
 			stage.setHeight(350);
 			stage.setTitle("Set Preferences");
 			userProfile.login(username);
-			MainPageView mainPage = new MainPageView(this, userProfile);
-			setToPage(mainPage.initializePanel(), 500, 400);
+			
+			if (!db.getPreferences(currentUserId).isEmpty()) {
+				MainPageView mainPage = new MainPageView(this, userProfile);
+				setToPage(mainPage.initializePanel(), 500, 400);
+			} else {
+				PreferencePage preferencePage = new PreferencePage(this, userProfile);
+				setToPage(preferencePage.initializePanel(), -1, -1);
+				
+			}
 			return true;
 		}
 		return false;
@@ -89,9 +99,10 @@ public class RoomMatchGUI extends Application {
 			stage.setTitle("Set Preferences");
 
 			userProfile.login(username);
-
+			
 			PreferencePage preferencePage = new PreferencePage(this, userProfile);
 			setToPage(preferencePage.initializePanel(), -1, -1);
+			
 		}
 		
 	}

@@ -28,6 +28,30 @@ public class DatabaseManager {
             }
         }
         
+        //temp delete function
+        public void delete(int userID) {
+        	String sql1 = "DELETE FROM accounts WHERE id = ?";
+        	String sql2 = "DELETE FROM preferences WHERE user_id = ?";
+
+            try (Connection conn = DriverManager.getConnection(URL);
+                 PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+            	 PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
+
+                // Set the parameter for the WHERE clause
+                pstmt1.setInt(1, userID);
+                pstmt2.setInt(1, userID);
+
+                // Execute the DELETE statement
+                pstmt1.executeUpdate();
+                pstmt2.executeUpdate();
+
+                System.out.println("User " + userID + " Deleted");
+
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        
         // Needs Salting and Hashing for security
         public boolean insert(String user, String pass) {
             String checkSql = "SELECT * FROM accounts WHERE name = ?";

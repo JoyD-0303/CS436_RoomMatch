@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -90,7 +91,8 @@ public class MainPageView {
 			}
 		}
 
-		window.setCenter(infoBox);
+		ScrollPane scrollPane = new ScrollPane(infoBox);
+		window.setCenter(scrollPane);
 		
 		return window;
 	}

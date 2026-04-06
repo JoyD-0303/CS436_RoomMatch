@@ -276,7 +276,7 @@ public class DatabaseManager {
 			} catch (SQLException e) {
 				System.err.println(e.getMessage());
 			}
-			Comparator myComparator = new SortByCompatabilty();
+			Comparator<SortProfiles> myComparator = new SortByCompatabilty();
 			Collections.sort(profiles, myComparator);
 			return profiles;
 		}

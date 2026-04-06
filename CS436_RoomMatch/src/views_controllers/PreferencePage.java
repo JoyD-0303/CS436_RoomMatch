@@ -35,6 +35,8 @@ public class PreferencePage {
         sleepBox.getItems().addAll("early", "late");
         cleanBox.getItems().addAll("low", "medium", "high");
         guestBox.getItems().addAll("rare", "sometimes", "often");
+        
+        fillWithSavedValues();
 
         Button saveButton = new Button("Save Preferences");
 
@@ -58,6 +60,14 @@ public class PreferencePage {
         saveButton.setOnAction(new SaveHandler());
 
         return window;
+    }
+    
+    private void fillWithSavedValues() {
+    	String[] preferences = userProfile.getPreferenceValues();
+    	
+    	sleepBox.setValue(preferences[0]);
+    	cleanBox.setValue(preferences[1]);
+    	guestBox.setValue(preferences[2]);
     }
 
     private class SaveHandler implements EventHandler<ActionEvent> {

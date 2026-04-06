@@ -21,19 +21,19 @@ public class UserProfile {
 	}
 	
 	public String getSleepSchedule() {
-		return sleepSchedule;
+		return sleepSchedule != null ? sleepSchedule : "null";
 	}
 	
 	public String getCleanliness() {
-		return cleanliness;
+		return cleanliness != null ? cleanliness : "null";
 	}
 	
 	public String getGuests() {
-		return guests;
+		return guests != null ? guests : "null";
 	}
 
 	public String getUsername() {
-	    return username;
+		return username;
 	}
 	
 	public void login(String user) {
@@ -58,6 +58,16 @@ public class UserProfile {
 			return username;
 		
 		return null;
+	}
+	
+	public String[] getPreferenceValues() {
+		String arr[] = new String[3];
+		
+		arr[0] = sleepSchedule;
+		arr[1] = cleanliness;
+		arr[2] = guests;
+		
+		return arr;
 	}
 
 	// for debugging

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFDEA5;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.MainPageView">
+   <children>
+      <AnchorPane layoutX="238.0" layoutY="27.0" prefHeight="373.0" prefWidth="362.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+         <children>
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" layoutX="7.0" layoutY="7.0" style="-fx-background: #FFDEA5; -fx-background-radius: 20;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <VBox fx:id="infoBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <VBox prefHeight="422.0" prefWidth="241.0" style="-fx-background-color: #ED593B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="welcomeLabel" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="246.0" style="-fx-background-color: #ED593B;;" text="Welcome User" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Label>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="306.0" prefWidth="246.0" style="-fx-background-color: #ED593B;">
+               <children>
+                  <VBox layoutX="9.0" layoutY="-14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="223.0" style="-fx-background-color: #FFDDCF; -fx-background-radius: 15;">
+                     <children>
+                        <Label fx:id="sleepLabel" prefHeight="40.0" prefWidth="230.0" style="-fx-label-padding: 10;" text="Sleep Schedule" textFill="#5e2222" wrapText="true" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+                        <Label fx:id="cleanlinessLabel" prefHeight="40.0" prefWidth="230.0" style="-fx-label-padding: 10;" text="Cleanliness" textFill="#5e2222" wrapText="true" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+                        <Label fx:id="guestsLabel" prefHeight="40.0" prefWidth="230.0" style="-fx-label-padding: 10;" text="Guest frequency" textFill="#5e2222" wrapText="true" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <MenuBar layoutX="-8.0" prefHeight="28.0" prefWidth="808.0" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="0.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="Options">
+              <items>
+                <MenuItem fx:id="option1" mnemonicParsing="false" onAction="#optionOneHandler" text="Set Prefernces" />
+                  <MenuItem fx:id="option2" mnemonicParsing="false" onAction="#optionTwoHandler" text="Delete Account" />
+                  <MenuItem fx:id="option3" mnemonicParsing="false" onAction="#optionThreeHandler" text="Log Out" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

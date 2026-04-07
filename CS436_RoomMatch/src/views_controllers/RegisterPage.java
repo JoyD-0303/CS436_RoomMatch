@@ -1,8 +1,12 @@
 package views_controllers;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -106,9 +110,18 @@ public class RegisterPage {
 	private class ReturnHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent arg0) {
-			LoginPage loginPage = new LoginPage(controller);
-			BorderPane window = loginPage.initializePanel();
-			controller.setToPage(window, -1, -1);
+			controller.logout();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+			Parent root = null;
+			try {
+				root = loader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			LoginPage loginPage = loader.getController();
+			loginPage.setMainController(controller);
+			controller.setToPage(root, -1, -1);
 		}
 	}
 }

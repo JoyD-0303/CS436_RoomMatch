@@ -1,8 +1,13 @@
 package views_controllers;
 
+import java.io.IOException;
 import java.util.Optional;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -20,161 +25,81 @@ import model.UserProfile;
 public class MainPageView {
 	RoomMatchGUI controller;
 	UserProfile userProfile;
-	
-	public MainPageView(RoomMatchGUI source, UserProfile user) {
+
+	@FXML
+	private Label welcomeLabel;
+	@FXML
+	private Label sleepLabel;
+	@FXML
+	private Label cleanlinessLabel;
+	@FXML
+	private Label guestsLabel;
+	@FXML
+	private VBox infoBox;
+	@FXML
+	private ScrollPane scrollPane;
+
+	@FXML
+	private MenuItem option1;
+	@FXML
+	private MenuItem option2;
+	@FXML
+	private MenuItem option3;
+
+	public void setMainController(RoomMatchGUI source, UserProfile user) {
 		controller = source;
 		userProfile = user;
+
 	}
-	
-	public BorderPane initializePanel() {
-		BorderPane window = new BorderPane();
-		
+
+	public void setInfo() throws IOException {
 		controller.getPreferences();
-
-		MenuItem option1 = new MenuItem("set preferences");
-		MenuItem option2 = new MenuItem("delete account");
-		MenuItem option3 = new MenuItem("logout");
-		Menu options = new Menu("Options");
-		options.getItems().addAll(option1, option2, option3);
-		
-		option1.setOnAction((event) -> {
-			PreferencePage preferencePage = new PreferencePage(controller, userProfile);
-			controller.setToPage(preferencePage.initializePanel(), 500, 400);
-		});
-		
-		option2.setOnAction((event) -> {
-			Alert alert = new Alert(AlertType.WARNING, 
-					"Are you sure you want to delete your account?\nThis action cannot be undone.", 
-					ButtonType.YES, ButtonType.CANCEL);
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.isPresent() && result.get() == ButtonType.YES) {
-				controller.deleteAccount();
-				logout();
-			}
-		});
-		
-		option3.setOnAction((event) -> {
-			logout();
-		});
-
-		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().addAll(options);
-		window.setTop(menuBar);
-		
-		Label welcomeLabel = new Label("Welcome " + userProfile.getUser());
-		Label sleepLabel = new Label("Your Sleep Schedule: " + userProfile.getSleepSchedule());
-		Label cleanlinessLabel = new Label("Your Cleanliness: " + userProfile.getCleanliness());
-		Label guestsLabel = new Label("Your Guest Frequency: " + userProfile.getGuests());
-		Label matchesTitle = new Label("Your Matches");
-
-		VBox infoBox = new VBox(10);
-		infoBox.setPadding(new Insets(15));
-		infoBox.getChildren().addAll(
-				welcomeLabel,
-				sleepLabel,
-				cleanlinessLabel,
-				guestsLabel,
-				new Separator(),
-				matchesTitle
-		);
+		System.out.println(userProfile.getCleanliness());
+		welcomeLabel.setText("Welcome " + userProfile.getUser() + "!");
+		sleepLabel.setText("Your Sleep Schedule: " + userProfile.getSleepSchedule());
+		cleanlinessLabel.setText("Your Cleanliness: " + userProfile.getCleanliness());
+		guestsLabel.setText("Your Guest Frequency: " + userProfile.getGuests());
 
 		java.util.List<SortProfiles> matches = controller.getMatches();
 
-		if (matches.isEmpty()) {
-			infoBox.getChildren().add(
-				new Label("No matches found yet. Check back when more users have signed up.")
-			);
-		} else {
-			for (SortProfiles match : matches) {
-				VBox matchCard = buildMatchCard(match);
-				infoBox.getChildren().add(matchCard);
-			}
-		}
+		for (SortProfiles match : matches) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("MatchCardView.fxml"));
+			Parent root = loader.load();
 
-		ScrollPane scrollPane = new ScrollPane(infoBox);
-		window.setCenter(scrollPane);
-		
-		return window;
+			ProfileCard card = loader.getController();
+			card.createCard(match);
+			infoBox.getChildren().add(root);
+		}
+		scrollPane.setContent(infoBox);
+
 	}
-	
-	private VBox buildMatchCard(SortProfiles match) {
-		UserProfile otherProfile = match.getOtherProfile();
 
-		int score = match.getScore();
-		int maxScore = 35;
-		int percentage = (int)(((double)(score + 20) / (maxScore + 20)) * 100);
-
-		Label nameLabel = new Label("Match: " + match.getOtherUser());
-		Label percentLabel = new Label("Compatibility: " + percentage + "%");
-
-		boolean sleepMatch = userProfile.getSleepSchedule().equalsIgnoreCase(otherProfile.getSleepSchedule());
-		boolean cleanMatch = userProfile.getCleanliness().equalsIgnoreCase(otherProfile.getCleanliness());
-		boolean guestMatch = userProfile.getGuests().equalsIgnoreCase(otherProfile.getGuests());
-
-		Label sleepMatchLabel = new Label(
-			"Sleep Schedule: " + compareText(userProfile.getSleepSchedule(), otherProfile.getSleepSchedule(), sleepMatch)
-		);
-
-		Label cleanMatchLabel = new Label(
-			"Cleanliness: " + compareText(userProfile.getCleanliness(), otherProfile.getCleanliness(), cleanMatch)
-		);
-
-		Label guestMatchLabel = new Label(
-			"Guest Frequency: " + compareText(userProfile.getGuests(), otherProfile.getGuests(), guestMatch)
-		);
-
-		String warningText = buildWarningText(sleepMatch, cleanMatch, guestMatch);
-		Label warningLabel = new Label(warningText);
-
-		VBox matchCard = new VBox(5);
-		matchCard.setPadding(new Insets(10));
-		matchCard.setStyle(
-			"-fx-border-color: black;" +
-			"-fx-border-width: 1;" +
-			"-fx-background-color: white;"
-		);
-
-		matchCard.getChildren().addAll(
-				nameLabel,
-				percentLabel,
-				sleepMatchLabel,
-				cleanMatchLabel,
-				guestMatchLabel
-		);
-
-		if (!warningText.isEmpty()) {
-			matchCard.getChildren().add(warningLabel);
-		}
-
-		return matchCard;
+	@FXML
+	private void optionOneHandler(ActionEvent e) {
+		PreferencePage preferencePage = new PreferencePage(controller, userProfile);
+		controller.setToPage(preferencePage.initializePanel(), 500, 400);
 	}
-	
-	private String compareText(String currentValue, String otherValue, boolean isMatch) {
-		if (isMatch) {
-			return "Match (" + currentValue + ")";
-		}
-		return "Mismatch (" + currentValue + " vs " + otherValue + ")";
-	}
-	
-	private String buildWarningText(boolean sleepMatch, boolean cleanMatch, boolean guestMatch) {
-		String warning = "";
 
-		if (!cleanMatch) {
-			warning += "Potential conflict: cleanliness. ";
+	@FXML
+	private void optionTwoHandler(ActionEvent e) throws IOException {
+		Alert alert = new Alert(AlertType.WARNING,
+				"Are you sure you want to delete your account?\nThis action cannot be undone.", ButtonType.YES,
+				ButtonType.CANCEL);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.YES) {
+			controller.deleteAccount();
+			logout();
 		}
-		if (!sleepMatch) {
-			warning += "Potential conflict: sleep schedule. ";
-		}
-		if (!guestMatch) {
-			warning += "Potential conflict: guest frequency.";
-		}
-
-		return warning.trim();
 	}
-	
-	private void logout() {
+
+	@FXML
+	private void optionThreeHandler(ActionEvent e) throws IOException {
+		logout();
+	}
+
+	private void logout() throws IOException {
 		controller.logout();
-		LoginPage loginPage = new LoginPage(controller);
-		controller.setToPage(loginPage.initializePanel(), 300, 200);
+		controller.setToPage("LoginView.fxml", "Login");
 	}
+
 }

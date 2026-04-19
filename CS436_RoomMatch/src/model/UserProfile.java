@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class UserProfile {
 	private boolean loggedIn = false;
 	private String username;
@@ -8,6 +10,7 @@ public class UserProfile {
 	private String sleepSchedule = "";
 	private String cleanliness = "";
 	private String guests = "";
+	private ArrayList<String> preferences = new ArrayList<>();
 	private boolean sleepDealbreaker = false;
 	private boolean cleanlinessDealbreaker = false;
 	private boolean guestsDealbreaker = false;
@@ -40,6 +43,12 @@ public class UserProfile {
 	    sleepDealbreaker = sleep;
 	    cleanlinessDealbreaker = clean;
 	    guestsDealbreaker = guests;
+	}
+	
+	public void setDealbreakers(java.util.List<Boolean> dealbreakers) {
+		sleepDealbreaker = dealbreakers.get(0);
+		cleanlinessDealbreaker = dealbreakers.get(1);
+		guestsDealbreaker = dealbreakers.get(2);
 	}
 
 	public boolean isSleepDealbreaker() {
@@ -92,6 +101,16 @@ public class UserProfile {
 		arr[0] = sleepSchedule;
 		arr[1] = cleanliness;
 		arr[2] = guests;
+		
+		return arr;
+	}
+	
+	public boolean[] getDealbreakersAsArray() {
+		boolean arr[] = new boolean[3];
+		
+		arr[0] = sleepDealbreaker;
+		arr[1] = cleanlinessDealbreaker;
+		arr[2] = guestsDealbreaker;
 		
 		return arr;
 	}

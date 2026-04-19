@@ -10,6 +10,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.CheckBox;
 import model.UserProfile;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class PreferencePage {
     private RoomMatchGUI controller;
@@ -22,6 +26,9 @@ public class PreferencePage {
     private CheckBox cleanDealbreaker = new CheckBox("Deal-breaker");
     private CheckBox guestDealbreaker = new CheckBox("Deal-breaker");
     private Label information = new Label("");
+    
+    private ArrayList<ComboBox<String>> preferences = new ArrayList<>();
+    private ArrayList<CheckBox> dealbreakers = new ArrayList<>();
 
     public PreferencePage(RoomMatchGUI source, UserProfile user) {
         controller = source;
@@ -29,13 +36,38 @@ public class PreferencePage {
     }
 
     BorderPane initializePanel() {
+    	Scanner file;
+    	ArrayList<Label> labels = new ArrayList<>();
+    	
         BorderPane window = new BorderPane();
 
         Label title = new Label("Tell Us About Your Living Habits");
         Label subtitle = new Label("Check 'Deal-breaker' for any preference you will not compromise on.");
-        Label sleepLabel = new Label("Your Sleep Schedule");
-        Label cleanLabel = new Label("Your Cleanliness Level");
-        Label guestLabel = new Label("How Often You Have Guests");
+        //Label sleepLabel = new Label("Your Sleep Schedule");
+        //Label cleanLabel = new Label("Your Cleanliness Level");
+        //Label guestLabel = new Label("How Often You Have Guests");
+        
+        // Create description labels
+        file = readFile("\\txt\\descriptions.txt");
+        while( file.hasNextLine() )
+        	labels.add(new Label(file.nextLine()));
+        
+        // Create preference dropdown menus
+        file = readFile("\\txt\\preferences.txt");
+        while( file.hasNextLine() ) {
+        	String split[] = file.nextLine().split(" ");
+        	
+        	ComboBox<String> preference = new ComboBox<>();
+        	for(int i=0; i<split.length; i++) {
+        		preference.getItems().add(split[i]);
+        	}
+        	preferences.add(preference);
+        }
+        
+        // Create dealbreaker booleans
+        for(int i=0; i<preferences.size(); i++) {
+        	dealbreakers.add(new CheckBox("Deal-breaker"));
+        }
 
         sleepBox.getItems().addAll("early", "late");
         cleanBox.getItems().addAll("low", "medium", "high");
@@ -52,15 +84,24 @@ public class PreferencePage {
 
         grid.add(title, 0, 0, 3, 1);
         grid.add(subtitle, 0, 1, 3, 1);
-        grid.add(sleepLabel, 0, 2);
-        grid.add(sleepBox, 1, 2);
+        
+        for(int i=0, j=2; i<preferences.size(); i++, j++) {
+        	grid.add(labels.get(i), 0, j);
+        	grid.add(preferences.get(i), 1, j);
+        	grid.add(dealbreakers.get(i), 2, j);
+        }
+        /*
+        grid.add(labels.get(0), 0, 2);
+        grid.add(preferences.get(0), 1, 2);
         grid.add(sleepDealbreaker, 2, 2);
-        grid.add(cleanLabel, 0, 3);
-        grid.add(cleanBox, 1, 3);
+        grid.add(labels.get(1), 0, 3);
+        grid.add(preferences.get(1), 1, 3);
         grid.add(cleanDealbreaker, 2, 3);
-        grid.add(guestLabel, 0, 4);
-        grid.add(guestBox, 1, 4);
+        grid.add(labels.get(2), 0, 4);
+        grid.add(preferences.get(2), 1, 4);
         grid.add(guestDealbreaker, 2, 4);
+        */
+        
         grid.add(saveButton, 1, 5);
 
         window.setTop(grid);
@@ -73,19 +114,27 @@ public class PreferencePage {
     
     private void fillWithSavedValues() {
     	String[] preferences = userProfile.getPreferencesAsArray();
+    	boolean[] dealbreakers = userProfile.getDealbreakersAsArray();
     	
-    	sleepBox.setValue(preferences[0]);
-    	cleanBox.setValue(preferences[1]);
-    	guestBox.setValue(preferences[2]);
+    	for(int i=0; i<this.preferences.size(); i++) {
+    		this.preferences.get(i).setValue(preferences[i]);
+    		this.dealbreakers.get(i).setSelected(dealbreakers[i]);
+    	}
+    	/*
+    	this.preferences.get(0).setValue(preferences[0]);
+    	this.preferences.get(1).setValue(preferences[1]);
+    	this.preferences.get(2).setValue(preferences[2]);
     	
     	sleepDealbreaker.setSelected(userProfile.isSleepDealbreaker());
     	cleanDealbreaker.setSelected(userProfile.isCleanlinessDealbreaker());
     	guestDealbreaker.setSelected(userProfile.isGuestsDealbreaker());
+    	*/
     }
 
     private class SaveHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
+        	/*
             String sleep = sleepBox.getValue();
             String clean = cleanBox.getValue();
             String guest = guestBox.getValue();
@@ -98,16 +147,56 @@ public class PreferencePage {
                 information.setText("Please select all preferences before saving.");
                 return;
             }
-
+            */
+        	
+        	ArrayList<String> p = new ArrayList<>();
+        	ArrayList<Boolean> b = new ArrayList<>();
+        	for(int i=0; i<preferences.size(); i++) {
+        		p.add(preferences.get(i).getValue());
+        		b.add(dealbreakers.get(i).isSelected());
+        	}
+        	
+        	userProfile.setPreferences(p);
+        	controller.savePreferences(p);
+        	
+        	userProfile.setDealbreakers(b);
+        	controller.saveDealbreakers(b);
+        	
+        	/*
             userProfile.setPreferences(sleep, clean, guest);
             controller.savePreferences(sleep, clean, guest);
             
             userProfile.setDealbreakers(sleepDB, cleanDB, guestDB);
             controller.saveDealbreakers(sleepDB, cleanDB, guestDB);
+            */
             
             MainPageView mainPage = new MainPageView(controller, userProfile);
             BorderPane window = mainPage.initializePanel();
             controller.setToPage(window, 500, 400);
         }
     }
+    
+    private Scanner readFile(String path) {
+    	Scanner file = null;
+    	String workingDir = System.getProperty("user.dir");
+    	
+    	workingDir += path;
+    	try {
+			file = new Scanner( new File(workingDir) );
+		} catch (FileNotFoundException e) {
+			System.err.println("Failed to read from file " + workingDir);
+			e.printStackTrace();
+		}
+    	
+    	/*
+    	while( file.hasNextLine() ) {
+    		System.out.println(file.nextLine());
+    	}*/
+    	
+    	return file;
+    }
 }
+
+
+
+

@@ -310,6 +310,21 @@ public class DatabaseManager {
 		    }
 		    return result;
 		}
+		
+		public void savePreferenceDescriptions(int userId, String sleep, String cleanliness, String guests) {
+			String sql = "INSERT OR REPLACE INTO descriptions (user_id, sleep_schedule, cleanliness, guests) "
+					+ "VALUES (?, ?, ?, ?)";
+			try (Connection connection = DriverManager.getConnection(URL);
+					PreparedStatement pstmt = connection.prepareStatement(sql)) {
+					pstmt.setInt(1, userId);
+					pstmt.setString(2, sleep);
+					pstmt.setString(3, cleanliness);
+					pstmt.setString(4, guests);
+					pstmt.executeUpdate();
+				} catch (SQLException e) {
+					System.err.println(e.getMessage());
+				}
+		}
 
 		// For getting a list of everyone else's profiles except the user requesting a match, for comparing
 		/**

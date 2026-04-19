@@ -10,7 +10,7 @@ import model.UserProfile;
 /**
  * <p>Main is contained in this method.</p>
  */
-public class RoomMatchGUI extends Application {
+public class RoomMatchGUI extends Application {	// TODO: Implement loops in the database and userProfile for the preferences
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -106,6 +106,10 @@ public class RoomMatchGUI extends Application {
 	public void savePreferences(String sleep, String cleanliness, String guests) {
 		db.savePreferences(currentUserId, sleep, cleanliness, guests);
 	}
+	
+	public void savePreferences(java.util.List<String> preferences) {
+		db.savePreferences(currentUserId, preferences.get(0), preferences.get(1), preferences.get(2));
+	}
 
 	public void getPreferences() {
 		java.util.List<String> preferences = db.getPreferences(currentUserId);
@@ -114,6 +118,10 @@ public class RoomMatchGUI extends Application {
 	
 	public void saveDealbreakers(boolean sleep, boolean cleanliness, boolean guests) {
 	    db.saveDealbreakers(currentUserId, sleep, cleanliness, guests);
+	}
+	
+	public void saveDealbreakers(java.util.List<Boolean> dealbreakers) {
+		db.saveDealbreakers(currentUserId, dealbreakers.get(0), dealbreakers.get(1), dealbreakers.get(2));
 	}
 
 	public void loadDealbreakers() {

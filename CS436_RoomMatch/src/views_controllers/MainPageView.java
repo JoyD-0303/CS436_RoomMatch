@@ -29,14 +29,22 @@ public class MainPageView {
 	public BorderPane initializePanel() {
 		BorderPane window = new BorderPane();
 		
+		boolean isAdmin = controller.isAdmin();
+		
 		controller.getPreferences();
 		controller.loadDealbreakers();
 
 		MenuItem option1 = new MenuItem("set preferences");
 		MenuItem option2 = new MenuItem("delete account");
 		MenuItem option3 = new MenuItem("logout");
+		MenuItem option4 = null;
+		if( isAdmin ) 
+			option4 = new MenuItem("modify existing preferences");
+		
 		Menu options = new Menu("Options");
-		options.getItems().addAll(option1, option2, option3);
+		if( isAdmin )
+			options.getItems().addAll(option1, option2, option3, option4);
+		else options.getItems().addAll(option1, option2, option3);
 		
 		option1.setOnAction((event) -> {
 			PreferencePage preferencePage = new PreferencePage(controller, userProfile);
@@ -57,6 +65,12 @@ public class MainPageView {
 		option3.setOnAction((event) -> {
 			logout();
 		});
+		
+		if( isAdmin ) {
+			option4.setOnAction((event) -> {
+				System.out.println("Not yet implemented");
+			});
+		}
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(options);

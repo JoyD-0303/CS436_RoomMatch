@@ -14,17 +14,26 @@ public class UserProfile {
 	private boolean sleepDealbreaker = false;
 	private boolean cleanlinessDealbreaker = false;
 	private boolean guestsDealbreaker = false;
+	private ArrayList<Boolean> dealbreakers = new ArrayList<>();
 	
 	public void setPreferences(String sleep, String clean, String guest) {
 	    sleepSchedule = sleep;
 	    cleanliness = clean;
 	    guests = guest;
+	    
+	    preferences.add(sleep);
+	    preferences.add(clean);
+	    preferences.add(guest);
 	}
 	
 	public void setPreferences(java.util.List<String> preferences) {
 		sleepSchedule = preferences.get(0);
 		cleanliness = preferences.get(1);
 		guests = preferences.get(2);
+		
+		for(int i=0; i<preferences.size(); i++) {
+			this.preferences.add(preferences.get(i));
+		}
 	}
 	
 	public int getPreferenceCount() {
@@ -43,12 +52,20 @@ public class UserProfile {
 	    sleepDealbreaker = sleep;
 	    cleanlinessDealbreaker = clean;
 	    guestsDealbreaker = guests;
+	    
+	    dealbreakers.add(sleep);
+	    dealbreakers.add(clean);
+	    dealbreakers.add(guests);
 	}
 	
 	public void setDealbreakers(java.util.List<Boolean> dealbreakers) {
 		sleepDealbreaker = dealbreakers.get(0);
 		cleanlinessDealbreaker = dealbreakers.get(1);
 		guestsDealbreaker = dealbreakers.get(2);
+		
+		for(int i=0; i<dealbreakers.size(); i++) {
+			this.dealbreakers.add(dealbreakers.get(i));
+		}
 	}
 
 	public boolean isSleepDealbreaker() {
@@ -95,24 +112,12 @@ public class UserProfile {
 		return null;
 	}
 	
-	public String[] getPreferencesAsArray() {
-		String arr[] = new String[3];
-		
-		arr[0] = sleepSchedule;
-		arr[1] = cleanliness;
-		arr[2] = guests;
-		
-		return arr;
+	public ArrayList<String> getPreferencesAsArray() {
+		return preferences;
 	}
 	
-	public boolean[] getDealbreakersAsArray() {
-		boolean arr[] = new boolean[3];
-		
-		arr[0] = sleepDealbreaker;
-		arr[1] = cleanlinessDealbreaker;
-		arr[2] = guestsDealbreaker;
-		
-		return arr;
+	public ArrayList<Boolean> getDealbreakersAsArray() {
+		return dealbreakers;
 	}
 	
 	public void verifyPreferenceCount(int shouldBe) {

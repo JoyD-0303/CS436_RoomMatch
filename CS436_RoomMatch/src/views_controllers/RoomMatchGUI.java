@@ -102,13 +102,18 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 		}
 		return false;
 	}
+	
+	public boolean isAdmin() {
+		return db.isAdmin(currentUserId);
+	}
 
 	public void savePreferences(String sleep, String cleanliness, String guests) {
 		db.savePreferences(currentUserId, sleep, cleanliness, guests);
 	}
 	
 	public void savePreferences(java.util.List<String> preferences) {
-		db.savePreferences(currentUserId, preferences.get(0), preferences.get(1), preferences.get(2));
+		//db.savePreferences(currentUserId, preferences.get(0), preferences.get(1), preferences.get(2));
+		db.savePreferences(currentUserId, preferences);
 	}
 
 	public void getPreferences() {
@@ -121,7 +126,8 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 	}
 	
 	public void saveDealbreakers(java.util.List<Boolean> dealbreakers) {
-		db.saveDealbreakers(currentUserId, dealbreakers.get(0), dealbreakers.get(1), dealbreakers.get(2));
+		//db.saveDealbreakers(currentUserId, dealbreakers.get(0), dealbreakers.get(1), dealbreakers.get(2));
+		db.saveDealbreakers(currentUserId, dealbreakers);
 	}
 
 	public void loadDealbreakers() {

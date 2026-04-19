@@ -69,9 +69,11 @@ public class PreferencePage {
         	dealbreakers.add(new CheckBox("Deal-breaker"));
         }
 
+        /*
         sleepBox.getItems().addAll("early", "late");
         cleanBox.getItems().addAll("low", "medium", "high");
         guestBox.getItems().addAll("rare", "sometimes", "often");
+        */
         
         fillWithSavedValues();
 
@@ -113,12 +115,12 @@ public class PreferencePage {
     }
     
     private void fillWithSavedValues() {
-    	String[] preferences = userProfile.getPreferencesAsArray();
-    	boolean[] dealbreakers = userProfile.getDealbreakersAsArray();
+    	java.util.List<String> preferences = userProfile.getPreferencesAsArray();
+    	java.util.List<Boolean> dealbreakers = userProfile.getDealbreakersAsArray();
     	
     	for(int i=0; i<this.preferences.size(); i++) {
-    		this.preferences.get(i).setValue(preferences[i]);
-    		this.dealbreakers.get(i).setSelected(dealbreakers[i]);
+    		this.preferences.get(i).setValue(preferences.get(i));
+    		this.dealbreakers.get(i).setSelected(dealbreakers.get(i));
     	}
     	/*
     	this.preferences.get(0).setValue(preferences[0]);

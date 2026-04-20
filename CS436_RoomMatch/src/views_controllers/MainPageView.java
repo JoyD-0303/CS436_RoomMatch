@@ -25,6 +25,7 @@ import model.UserProfile;
 public class MainPageView implements Page {
 	RoomMatchGUI controller;
 	UserProfile userProfile;
+	private Menu options;
 
 	@FXML
 	private Label welcomeLabel;
@@ -40,14 +41,17 @@ public class MainPageView implements Page {
 	private VBox infoBox;
 	@FXML
 	private ScrollPane scrollPane;
-
+	
+	
 	@FXML
 	private MenuItem option1;
 	@FXML
 	private MenuItem option2;
 	@FXML
 	private MenuItem option3;
-
+	@FXML
+	private MenuItem option4 = new MenuItem("Modify existing preferences");
+	
 	public void setMainController(RoomMatchGUI source, UserProfile user) {
 		controller = source;
 		userProfile = user;
@@ -58,10 +62,15 @@ public class MainPageView implements Page {
 		}
 
 	}
-
+	
 	private void setInfo() throws IOException {
+		
+		boolean isAdmin = controller.isAdmin();
 		controller.getPreferences();
 		controller.loadDealbreakers();
+
+		option4.setVisible(isAdmin);
+
 
 		String sleepText = "Your Sleep Schedule: " + userProfile.getSleepSchedule();
 		if (userProfile.isSleepDealbreaker())
@@ -98,13 +107,12 @@ public class MainPageView implements Page {
 			infoBox.getChildren().add(root);
 		}
 		scrollPane.setContent(infoBox);
-
+		
 	}
 
 	@FXML
-	private void optionOneHandler(ActionEvent e) {
-		PreferencePage preferencePage = new PreferencePage(controller, userProfile);
-		controller.setToPage(preferencePage.initializePanel(), 500, 400);
+	private void optionOneHandler(ActionEvent e) throws IOException {
+		controller.setToPage(View.PREF, "Set Preferences");
 	}
 
 	@FXML
@@ -127,6 +135,11 @@ public class MainPageView implements Page {
 	private void logout() throws IOException {
 		controller.logout();
 		controller.setToPage(View.LOGIN, "Login");
+	}
+	
+	@FXML
+	private void optionFourHandler(ActionEvent e) throws IOException {
+		System.out.println("Not yet implemented");
 	}
 
 }

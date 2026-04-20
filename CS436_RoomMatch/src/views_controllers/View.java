@@ -1,7 +1,8 @@
 package views_controllers;
 
 public enum View {
-	LOGIN("LoginView.fxml"), MAIN("MainView.fxml"), REGISTER("RegisterView.fxml"), PREF("PLACEHOLDER"), MATCHES("MatchCardView.fxml");
+	LOGIN("LoginView.fxml"), MAIN("MainView.fxml"), REGISTER("RegisterView.fxml"), PREF("PrefView.fxml"), 
+	MATCHES("MatchCardView.fxml"), PREFCARD("PrefCardView.fxml");
 	
 	private String filename;
 	

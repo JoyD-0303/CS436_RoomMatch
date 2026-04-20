@@ -3,10 +3,14 @@ package model;
 import java.sql.*;
 import java.util.Comparator;
 import java.util.Collections;
+import java.util.ArrayList;
 
 // TODO: The database should only be able to be accessed by an admin account. 
 public class DatabaseManager {
         final private String URL = "jdbc:sqlite:my.db";
+        
+        private final String FILE = System.getProperty("user.dir") + "\\txt\\p.ser";
+        private ArrayList<String> table_entries;
         
         public void init() {
         	String sql1 = "CREATE TABLE IF NOT EXISTS accounts ("
@@ -37,6 +41,26 @@ public class DatabaseManager {
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
+        }
+        
+        // Returns true if logged into the admin account
+        // Currently just checks if the string admin is the name of the account
+        // In future would need to be more secure
+        public boolean isAdmin(int userID) {
+        	String sql = "SELECT name FROM accounts WHERE id = " + userID;
+        	String user = "";
+        	
+        	try (Connection conn = DriverManager.getConnection(URL);
+   		         Statement stmt = conn.createStatement();
+   		         ResultSet rs = stmt.executeQuery(sql)) {
+                user = rs.getString(1);
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        	
+        	if( user.equalsIgnoreCase("admin") ) 
+        		return true;
+        	return false;
         }
         
         // If this application is made public in the future then removing and re-adding 
@@ -239,6 +263,30 @@ public class DatabaseManager {
 			}
 		}
 		
+		public void savePreferences(int userID, java.util.List<String> preferences) {
+			ArrayList<String> columns = getTableNames();
+			String sql = "INSERT OR REPLACE INTO preferences (";
+			
+			for(int i=0; i<columns.size(); i++) {
+				sql += columns.get(i) + (i != columns.size() - 1 ? ", " : ") ");
+			}
+			
+			sql += "VALUES (" + userID + ", ";
+			
+			for(int i=0; i<preferences.size(); i++) {
+				sql += "'" + preferences.get(i) + "'" + (i != preferences.size() - 1 ? ", " : ") ");
+			}
+			
+			System.out.println(sql);
+			
+			try(Connection connection = DriverManager.getConnection(URL);
+				PreparedStatement stmt = connection.prepareStatement(sql)) {
+				stmt.executeUpdate();
+			} catch(SQLException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		
 		/**
 		 * Returns a list of the users preferences. 
 		 * @param userId - id of user in the preferences table
@@ -285,6 +333,30 @@ public class DatabaseManager {
 		        System.err.println(e.getMessage());
 		    }
 		}
+		
+		public void saveDealbreakers(int userID, java.util.List<Boolean> dealbreakers) {
+			ArrayList<String> columns = getTableNames();
+			String sql = "INSERT OR REPLACE INTO dealbreakers (";
+			
+			for(int i=0; i<columns.size(); i++) {
+				sql += columns.get(i) + (i != columns.size() - 1 ? ", " : ") ");
+			}
+			
+			sql += "VALUES (" + userID + ", ";
+			
+			for(int i=0; i<dealbreakers.size(); i++) {
+				sql += dealbreakers.get(i) + (i != dealbreakers.size() - 1 ? ", " : ") ");
+			}
+			
+			System.out.println(sql);
+			
+			try(Connection connection = DriverManager.getConnection(URL);
+				PreparedStatement stmt = connection.prepareStatement(sql)) {
+				stmt.executeUpdate();
+			} catch(SQLException e) {
+				System.err.println(e.getMessage());
+			}
+		}
 
 		/**
 		 * Returns deal-breaker settings for a user as a boolean array.
@@ -310,6 +382,23 @@ public class DatabaseManager {
 		    }
 		    return result;
 		}
+		
+        private ArrayList<String> getTableNames() {
+        	String sql = "SELECT name FROM pragma_table_info('preferences')";
+        	ArrayList<String> columns = new ArrayList<>();
+        	
+        	try (Connection conn = DriverManager.getConnection(URL);
+  		         Statement stmt = conn.createStatement();
+  		         ResultSet rs = stmt.executeQuery(sql)) {
+        		while(rs.next()) {
+        			columns.add(rs.getString(1));
+        		}
+            } catch (SQLException e) {
+            	System.err.println(e.getMessage());
+            }
+        	
+        	return columns;
+        }
 
 		// For getting a list of everyone else's profiles except the user requesting a match, for comparing
 		/**

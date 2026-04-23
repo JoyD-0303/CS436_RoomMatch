@@ -53,6 +53,7 @@ public class PreferencePage implements Page {
 			String pLabel = file.nextLine();
 			prefLabels.add(pLabel);
 		}
+		file.close();
 		
 		infoBox.getChildren().clear();
 		preferences.clear();
@@ -68,6 +69,7 @@ public class PreferencePage implements Page {
 			preferences.add(card);
 			infoBox.getChildren().add(root);
 		}
+		file.close();
 
 		fillWithSavedValues();
 		scrollPane.setContent(infoBox);

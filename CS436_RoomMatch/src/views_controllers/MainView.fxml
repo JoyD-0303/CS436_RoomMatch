@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFDEA5;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.MainPageView">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFDEA5;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.MainPageView">
    <children>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -47,7 +47,7 @@
                         <items>
                           <MenuItem fx:id="option1" mnemonicParsing="false" onAction="#optionOneHandler" text="Set Prefrences" />
                               <MenuItem fx:id="option2" mnemonicParsing="false" onAction="#optionTwoHandler" text="Delete Account" />
-                              <MenuItem fx:id="option4" mnemonicParsing="false" text="Add Prefernces" />
+                              <MenuItem fx:id="option4" mnemonicParsing="false" onAction="#optionFourHandler" text="Add Prefernces" />
                               <MenuItem fx:id="option3" mnemonicParsing="false" onAction="#optionThreeHandler" text="Log Out" />
                         </items>
                       </Menu>

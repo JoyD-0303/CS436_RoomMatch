@@ -139,7 +139,6 @@ public class MainPageView implements Page {
 	
 	@FXML
 	private void optionFourHandler(ActionEvent e) throws IOException {
-		System.out.println("Not yet implemented");
+		controller.setToPage(View.ADDPREF, "Add preferences");
 	}
-
 }

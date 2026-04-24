@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="431.0" style="-fx-background-color: #FFEDCF;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.AddPreference">
    <children>
       <VBox prefHeight="556.0" prefWidth="431.0">
@@ -55,7 +54,6 @@
                         <TextArea fx:id="pOptions" prefHeight="200.0" prefWidth="210.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <Region prefHeight="18.0" prefWidth="439.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="savePreferences" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#savePreference" prefHeight="35.0" prefWidth="123.0" style="-fx-alignment: CENTER;" text="Save Preference" textAlignment="CENTER">
@@ -77,6 +75,11 @@
                         </Button>
                      </children>
                   </HBox>
+                  <Label fx:id="information" prefHeight="34.0" prefWidth="416.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
          </children>

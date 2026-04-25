@@ -16,6 +16,8 @@ import model.UserProfile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import model.ReadWrite;
+
 public class AddPreference implements Page {
 	private RoomMatchGUI controller;
 	private UserProfile userProfile;
@@ -51,8 +53,8 @@ public class AddPreference implements Page {
 		Scanner file1, file2;
 		String line2;
 		
-		file1 = readFile("/txt/descriptions.txt");
-		file2 = readFile("/txt/preferences.txt");
+		file1 = ReadWrite.ReadFile("/txt/descriptions.txt");
+		file2 = ReadWrite.ReadFile("/txt/preferences.txt");
 		while( file1.hasNextLine() ) {
 			vb.getChildren().add(new Label(file1.nextLine()));
 			line2 = "Options: ";
@@ -75,7 +77,7 @@ public class AddPreference implements Page {
 		
 		// Note: Uncomment below to see this in action, just replace the txt files after
 		//       running this. Found in CS436_RoomMatch/txt/...
-		/*
+		
 		String options[] = pOptions.getText().split("\n");
 		String preference = "";
 		
@@ -90,18 +92,18 @@ public class AddPreference implements Page {
 			return;
 		}
 		
-		writeFile("/txt/descriptions.txt", pDescription.getText());
+		ReadWrite.WriteFile("/txt/descriptions.txt", pDescription.getText());
 		
 		for(int i=0; i<options.length; i++) {
 			preference += options[i].trim().replace(' ', '_') + (i!=options.length-1 ? " " : "");
 		}
-		writeFile("/txt/preferences.txt", preference);
+		ReadWrite.WriteFile("/txt/preferences.txt", preference);
 		
 		pDescription.setText("");
 		pOptions.setText("");
 		
 		controller.setToPage(View.ADDPREF, "Add preferences");
-		*/
+		
 	}
 	
 	@FXML
@@ -109,6 +111,7 @@ public class AddPreference implements Page {
 		controller.setToPage(View.MAIN, "Welcome");
 	}
 	
+	/*
 	private Scanner readFile(String path) {
 		Scanner file = null;
 		String workingDir = System.getProperty("user.dir");
@@ -133,6 +136,7 @@ public class AddPreference implements Page {
 		writer.write("\n" + save);
 		writer.close();
 	}
+	*/
 }
 
 

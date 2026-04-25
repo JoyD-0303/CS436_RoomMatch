@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.SortProfiles;
 import model.UserProfile;
+import model.ReadWrite;
 
 public class MainPageView implements Page {
 	RoomMatchGUI controller;
@@ -85,7 +86,7 @@ public class MainPageView implements Page {
 		preferences = userProfile.getPreferencesAsArray();
 		dealbreakers = userProfile.getDealbreakersAsArray();
 		
-		setDescrList("/txt/descriptions.txt");
+		prefDescr = ReadWrite.RetrieveFileAsTextArr("/txt/descriptions.txt");
 
 		/*
 		String sleepText = "Your Sleep Schedule: " + userProfile.getSleepSchedule();
@@ -168,24 +169,5 @@ public class MainPageView implements Page {
 	@FXML
 	private void optionFourHandler(ActionEvent e) throws IOException {
 		controller.setToPage(View.ADDPREF, "Add preferences");
-	}
-	
-	private void setDescrList(String path) {
-		Scanner file = null;
-		String workingDir = System.getProperty("user.dir");
-		prefDescr = new ArrayList<>();
-
-		workingDir += path;
-		try {
-			file = new Scanner(new File(workingDir));
-		} catch (FileNotFoundException e) {
-			System.err.println("Failed to read from file " + workingDir);
-			e.printStackTrace();
-		}
-		
-		while(file.hasNextLine()) {
-			prefDescr.add(file.nextLine());
-		}
-		file.close();
 	}
 }

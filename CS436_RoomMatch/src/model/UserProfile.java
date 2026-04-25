@@ -6,7 +6,6 @@ public class UserProfile {
 	private boolean loggedIn = false;
 	private String username;
 	
-	private final int preferenceCount = 3;
 	private String sleepSchedule = "";
 	private String cleanliness = "";
 	private String guests = "";
@@ -41,10 +40,6 @@ public class UserProfile {
 			}
 		}
 		
-	}
-	
-	public int getPreferenceCount() {
-		return preferenceCount;
 	}
 	
 	public String getSleepSchedule() {
@@ -110,6 +105,8 @@ public class UserProfile {
 		
 		username = user;
 		loggedIn = true;
+		
+		checkCritError();
 	}
 	
 	public void logout() {
@@ -117,6 +114,9 @@ public class UserProfile {
 		
 		username = "";
 		loggedIn = false;
+		
+		preferences.clear();
+		dealbreakers.clear();
 	}
 	
 	public String getUser() {
@@ -134,13 +134,10 @@ public class UserProfile {
 		return dealbreakers;
 	}
 	
-	public void verifyPreferenceCount(int shouldBe) {
-		if( preferenceCount > shouldBe ) {
-			throw new IllegalArgumentException("There are more preferences in 'UserProfile.java' than exist in the database");
-		}
-		if( preferenceCount < shouldBe ) {
-			throw new IllegalArgumentException("There are more preferences in the database than exist in 'UserProfile'");
-		}
+	public void checkCritError() {
+		if( preferences.size() != dealbreakers.size() )
+			throw new IllegalArgumentException("A major error occurred, arrays do not align.\n"
+					+ "Thrown in UserProfile.java");
 	}
 
 	// for debugging

@@ -12,13 +12,16 @@ public class MatchCalculator {
         ArrayList<String> aPrefs = a.getPreferencesAsArray();
         ArrayList<String> bPrefs = b.getPreferencesAsArray();
         
+        if( weights.size() != aPrefs.size() || weights.size() != bPrefs.size() ) 
+        	throw new IllegalArgumentException("A major error occurred, arrays do not align.\n"
+					+ "Thrown in MatchCalculator.java");
+        
         for(int i=0; i<aPrefs.size(); i++) {
         	s = weights.get(i).split(" ");
         	
         	if(aPrefs.get(i).equalsIgnoreCase(bPrefs.get(i))) {
         		score += Integer.parseInt(s[0]);
-        	}
-        	else {
+        	} else {
         		score -= Integer.parseInt(s[1]);
         	}
         }

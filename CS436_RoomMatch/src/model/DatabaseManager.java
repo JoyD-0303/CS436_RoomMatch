@@ -110,8 +110,8 @@ public class DatabaseManager {
          * java classes. 
          * @return count of columns in preferences table
          */
-        public int getPreferenceTableEntryCount() {
-        	String sql = "SELECT COUNT(*) FROM pragma_table_info('preferences')";
+        public int getTableEntryCount(String tableName) {
+        	String sql = "SELECT COUNT(*) FROM pragma_table_info('" + tableName + "')";
         	
         	int count = -1;
         	
@@ -298,10 +298,26 @@ public class DatabaseManager {
 			try (Connection connection = DriverManager.getConnection(URL); 
 				 PreparedStatement stmt = connection.prepareStatement(sql)) {
 				ResultSet rs = stmt.executeQuery();
-				while(rs.next()) {
+				int entries = getTableEntryCount("preferences");
+				if(rs.next()) {
+					for(int i=2; i<=entries; i++) {
+						userPreferences.add(rs.getString(i));
+					}
+					
+					/*
 					userPreferences.add(rs.getString("sleep_schedule"));
 					userPreferences.add(rs.getString("cleanliness"));
 					userPreferences.add(rs.getString("guests"));
+					
+					System.out.println(rs.getString(1));
+					System.out.println(rs.getString(2));
+					System.out.println(rs.getString(3));
+					System.out.println(rs.getString(4));
+					*/
+					
+				} else {
+					System.err.println("Failed to retrieve entries from preferences table "
+									 + "where user id = " + userId);
 				}
 			} catch (SQLException e) {
 				System.err.println(e.getMessage());

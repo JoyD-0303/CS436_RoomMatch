@@ -110,33 +110,6 @@ public class AddPreference implements Page {
 	private void returnToMainPage(ActionEvent event) throws IOException {
 		controller.setToPage(View.MAIN, "Welcome");
 	}
-	
-	/*
-	private Scanner readFile(String path) {
-		Scanner file = null;
-		String workingDir = System.getProperty("user.dir");
-
-		workingDir += path;
-		try {
-			file = new Scanner(new File(workingDir));
-		} catch (FileNotFoundException e) {
-			System.err.println("Failed to read from file " + workingDir);
-			e.printStackTrace();
-		}
-
-		return file;
-	}
-	
-	private void writeFile(String path, String save) throws IOException {
-		FileWriter writer;
-		String workingDir = System.getProperty("user.dir");
-		
-		workingDir += path;
-		writer = new FileWriter(workingDir, true);
-		writer.write("\n" + save);
-		writer.close();
-	}
-	*/
 }
 
 

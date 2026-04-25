@@ -53,7 +53,6 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 		Scene scene = new Scene(window);
 
 		userProfile = new UserProfile();
-		userProfile.verifyPreferenceCount(db.getPreferenceTableEntryCount() - 1);
 		
 		this.setToPage(View.LOGIN, "Login");
 

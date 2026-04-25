@@ -1,7 +1,11 @@
 package views_controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,16 +29,20 @@ import model.UserProfile;
 public class MainPageView implements Page {
 	RoomMatchGUI controller;
 	UserProfile userProfile;
-	private Menu options;
+	//private Menu options;
 
 	@FXML
 	private Label welcomeLabel;
+	/*
 	@FXML
 	private Label sleepLabel;
 	@FXML
 	private Label cleanlinessLabel;
 	@FXML
 	private Label guestsLabel;
+	*/
+	@FXML
+	private VBox yourPreferences;
 	@FXML
 	private Label noMatches;
 	@FXML
@@ -52,6 +60,10 @@ public class MainPageView implements Page {
 	@FXML
 	private MenuItem option4 = new MenuItem("Modify existing preferences");
 	
+	private ArrayList<String> preferences;
+	private ArrayList<Boolean> dealbreakers;
+	private ArrayList<String> prefDescr;
+	
 	public void setMainController(RoomMatchGUI source, UserProfile user) {
 		controller = source;
 		userProfile = user;
@@ -64,14 +76,18 @@ public class MainPageView implements Page {
 	}
 	
 	private void setInfo() throws IOException {
-		
 		boolean isAdmin = controller.isAdmin();
 		controller.getPreferences();
 		controller.loadDealbreakers();
 
 		option4.setVisible(isAdmin);
+		
+		preferences = userProfile.getPreferencesAsArray();
+		dealbreakers = userProfile.getDealbreakersAsArray();
+		
+		setDescrList("/txt/descriptions.txt");
 
-
+		/*
 		String sleepText = "Your Sleep Schedule: " + userProfile.getSleepSchedule();
 		if (userProfile.isSleepDealbreaker())
 			sleepText += " (deal-breaker)";
@@ -83,12 +99,24 @@ public class MainPageView implements Page {
 		String guestText = "Your Guest Frequency: " + userProfile.getGuests();
 		if (userProfile.isGuestsDealbreaker())
 			guestText += " (deal-breaker)";
+		*/
 
 		controller.getPreferences();
 		welcomeLabel.setText("Welcome " + userProfile.getUser() + "!");
+		
+		/*
 		sleepLabel.setText(sleepText);
 		cleanlinessLabel.setText(cleanText);
 		guestsLabel.setText(guestText);
+		*/
+		
+		for(int i=0; i<preferences.size(); i++) {
+			String desc = prefDescr.get(i) + ":\n";
+			desc += preferences.get(i);
+			if( dealbreakers.get(i) ) desc += " (deal-breaker)";
+			desc += "\n\n";
+			yourPreferences.getChildren().add(new Label(desc));
+		}
 
 		java.util.List<SortProfiles> matches = controller.getMatches();
 		infoBox.getChildren().clear();
@@ -140,5 +168,24 @@ public class MainPageView implements Page {
 	@FXML
 	private void optionFourHandler(ActionEvent e) throws IOException {
 		controller.setToPage(View.ADDPREF, "Add preferences");
+	}
+	
+	private void setDescrList(String path) {
+		Scanner file = null;
+		String workingDir = System.getProperty("user.dir");
+		prefDescr = new ArrayList<>();
+
+		workingDir += path;
+		try {
+			file = new Scanner(new File(workingDir));
+		} catch (FileNotFoundException e) {
+			System.err.println("Failed to read from file " + workingDir);
+			e.printStackTrace();
+		}
+		
+		while(file.hasNextLine()) {
+			prefDescr.add(file.nextLine());
+		}
+		file.close();
 	}
 }

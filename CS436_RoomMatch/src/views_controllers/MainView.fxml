@@ -21,22 +21,11 @@
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="325.0" prefWidth="200.0" style="-fx-background-color: #FFDDCF; -fx-background-radius: 20; -fx-border-radius: 10; -fx-border-width: 10; -fx-border-color: #ed593b;">
-                     <children>
-                        <Label fx:id="sleepLabel" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 5;" text="Label" textFill="#863030" wrapText="true">
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font></Label>
-                        <Label fx:id="cleanlinessLabel" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 5;" text="Label" textFill="#863030" wrapText="true">
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font></Label>
-                        <Label fx:id="guestsLabel" prefHeight="100.0" prefWidth="200.0" style="-fx-label-padding: 5;" text="Label" textFill="#863030" wrapText="true">
-                           <font>
-                              <Font name="Arial" size="15.0" />
-                           </font></Label>
-                     </children>
-                  </VBox>
+                  <ScrollPane prefHeight="325.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="yourPreferences" prefHeight="325.0" prefWidth="185.0" style="-fx-background-color: #FFDDCF; -fx-background-radius: 20; -fx-border-radius: 10; -fx-border-width: 10; -fx-border-color: #ed593b;" />
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="600.0" HBox.hgrow="ALWAYS">

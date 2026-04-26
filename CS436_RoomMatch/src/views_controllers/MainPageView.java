@@ -102,7 +102,7 @@ public class MainPageView implements Page {
 			guestText += " (deal-breaker)";
 		*/
 
-		controller.getPreferences();
+		//controller.getPreferences();
 		welcomeLabel.setText("Welcome " + userProfile.getUser() + "!");
 		
 		/*
@@ -132,7 +132,7 @@ public class MainPageView implements Page {
 			Parent root = loader.load();
 
 			ProfileCard card = loader.getController();
-			card.createCard(match);
+			card.createCard(match, controller.getMatchDescNames());
 			infoBox.getChildren().add(root);
 		}
 		scrollPane.setContent(infoBox);

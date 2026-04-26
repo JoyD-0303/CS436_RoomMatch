@@ -101,7 +101,9 @@ public class AddPreference implements Page {
 		}
 		ReadWrite.WriteFile("/txt/preferences.txt", preference);
 		
+		ReadWrite.WriteFile("/txt/weights.txt", "10 5");	// will be changed later
 		
+		controller.addPreferenceEntry(pName.getText().trim().replace(' ', '_').toLowerCase());
 		
 		pName.setText("");
 		pDescription.setText("");

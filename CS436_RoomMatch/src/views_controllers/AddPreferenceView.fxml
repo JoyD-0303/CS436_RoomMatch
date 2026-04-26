@@ -46,11 +46,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="62.0" prefWidth="215.0" text="Preference Options (put a new line for each option)" wrapText="true" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
+                        <Label prefHeight="62.0" prefWidth="215.0" text="Preference Options (put a new line for each option)" wrapText="true" GridPane.rowIndex="2" />
                         <TextArea fx:id="pDescription" prefHeight="56.0" prefWidth="304.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextArea fx:id="pOptions" prefHeight="200.0" prefWidth="210.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Preference Name">

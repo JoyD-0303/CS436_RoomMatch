@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.ProfileCard">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.ProfileCard">
    <children>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FFEDCF;;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="labels" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FFEDCF;;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
@@ -24,22 +24,6 @@
                   </Label>
                </children>
             </HBox>
-            <Label fx:id="sleepMatchLabel" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" prefWidth="600.0" style="-fx-label-padding: 10;" text="Sleep Scehdule">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <Label fx:id="cleanMatchLabel" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" prefWidth="600.0" style="-fx-label-padding: 10;" text="Cleanliness">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <Label fx:id="guestMatchLabel" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" prefWidth="600.0" style="-fx-label-padding: 10;" text="Guest Frequency">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <Label fx:id="warningLabel" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" prefWidth="600.0" style="-fx-label-padding: 10;" text="Potential Conflict">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
          </children>
       </VBox>
    </children>

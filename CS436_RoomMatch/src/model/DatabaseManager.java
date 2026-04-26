@@ -406,13 +406,14 @@ public class DatabaseManager {
 		 * @return boolean array of length 3
 		 */
 		public boolean[] getDealbreakers(int userId) {
-		    boolean[] result = {false, false, false};
+			int entries = getTableEntryCount("dealbreakers") - 1;
+		    boolean[] result = new boolean[entries];
 		    String sql = "SELECT sleep_schedule, cleanliness, guests FROM dealbreakers WHERE user_id = ?";
 		    try (Connection connection = DriverManager.getConnection(URL);
 		        PreparedStatement pstmt = connection.prepareStatement(sql)) {
 		        pstmt.setInt(1, userId);
 		        ResultSet rs = pstmt.executeQuery();
-		        int entries = getTableEntryCount("dealbreakers");
+		        entries += 1;
 		        if (rs.next()) {
 		        	/*
 		            result[0] = rs.getInt("sleep_schedule") == 1;
@@ -437,7 +438,7 @@ public class DatabaseManager {
 		 * Gets all column names from the specified table
 		 * @return - Table names as array 
 		 */
-        private ArrayList<String> getTableNames(String tableName) {
+        public ArrayList<String> getTableNames(String tableName) {
         	String sql = "SELECT name FROM pragma_table_info('" + tableName + "')";
         	ArrayList<String> columns = new ArrayList<>();
         	

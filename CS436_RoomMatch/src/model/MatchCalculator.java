@@ -19,7 +19,8 @@ public class MatchCalculator {
         for(int i=0; i<aPrefs.size(); i++) {
         	s = weights.get(i).split(" ");
         	
-        	if(aPrefs.get(i).equalsIgnoreCase(bPrefs.get(i))) {
+        	if(aPrefs.get(i) != null && bPrefs.get(i) != null && 
+        			aPrefs.get(i).equalsIgnoreCase(bPrefs.get(i))) {
         		score += Integer.parseInt(s[0]);
         	} else {
         		score -= Integer.parseInt(s[1]);

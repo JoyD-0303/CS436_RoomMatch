@@ -170,6 +170,10 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 	public java.util.List<model.SortProfiles> getMatches() {
 		return db.getAllMatches(currentUserId);
 	}
+	
+	public java.util.List<String> getMatchDescNames() {
+		return db.getTableNames("preferences");
+	}
 
 	public int getCurrentUserId() {
 		return currentUserId;

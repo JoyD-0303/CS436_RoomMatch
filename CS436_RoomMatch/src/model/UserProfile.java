@@ -36,7 +36,9 @@ public class UserProfile {
 			}
 		} else {
 			for(int i=0; i<preferences.size(); i++) {
-				this.preferences.set(i, preferences.get(i));
+				if( i < this.preferences.size() ) 
+					this.preferences.set(i, preferences.get(i));
+				else this.preferences.add(preferences.get(i));
 			}
 		}
 		
@@ -71,7 +73,9 @@ public class UserProfile {
 			}
 		} else {
 			for(int i=0; i<dealbreakers.size(); i++) {
-				this.dealbreakers.set(i, dealbreakers.get(i));
+				if( i < this.dealbreakers.size() ) 
+					this.dealbreakers.set(i, dealbreakers.get(i));
+				else this.dealbreakers.add(dealbreakers.get(i));
 			}
 		}
 		

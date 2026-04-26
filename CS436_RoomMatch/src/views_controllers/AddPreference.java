@@ -27,6 +27,8 @@ public class AddPreference implements Page {
 	@FXML 
 	private VBox vb;
 	@FXML
+	private TextArea pName;
+	@FXML
 	private TextArea pDescription;
 	@FXML
 	private TextArea pOptions;
@@ -83,8 +85,8 @@ public class AddPreference implements Page {
 		
 		information.setText("");
 		
-		if( pDescription.getText().isBlank() || pOptions.getText().isBlank() ) {
-			information.setText("Either the description and/or option text fields are blank.");
+		if( pName.getText().isBlank() || pDescription.getText().isBlank() || pOptions.getText().isBlank() ) {
+			information.setText("Either the name, description, and/or option text fields are blank.");
 			return;
 		}
 		if( options.length <= 1 ) {
@@ -99,11 +101,13 @@ public class AddPreference implements Page {
 		}
 		ReadWrite.WriteFile("/txt/preferences.txt", preference);
 		
+		
+		
+		pName.setText("");
 		pDescription.setText("");
 		pOptions.setText("");
 		
 		controller.setToPage(View.ADDPREF, "Add preferences");
-		
 	}
 	
 	@FXML

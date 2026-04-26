@@ -75,7 +75,6 @@ public class DatabaseManager {
         public void addPreferenceEntry(String columnName) {
         	String sql = "ALTER TABLE preferences "
         			   + "ADD " + columnName + " TEXT";
-        	
         	try (Connection connection = DriverManager.getConnection(URL);
         		 PreparedStatement stmt = connection.prepareStatement(sql)) {
         		stmt.executeUpdate();
@@ -85,6 +84,18 @@ public class DatabaseManager {
 		    		System.out.println("Table entry '" + columnName + "' already exists");
 		    	else System.err.println(e.getMessage());
 		    }
+        	
+        	sql = "ALTER TABLE dealbreakers "
+        		+ "ADD " + columnName + " TEXT";
+        	try (Connection connection = DriverManager.getConnection(URL);
+           		 PreparedStatement stmt = connection.prepareStatement(sql)) {
+           		stmt.executeUpdate();
+           		System.out.println("Added new table entry '" + columnName + "' to dealbreakers");
+   		    } catch (SQLException e) {
+   		    	if( e.getMessage().substring(46, 67).equals("duplicate column name") ) 
+   		    		System.out.println("Table entry '" + columnName + "' already exists");
+   		    	else System.err.println(e.getMessage());
+   		    }
         }
         
         /**

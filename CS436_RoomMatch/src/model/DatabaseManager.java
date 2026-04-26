@@ -109,7 +109,6 @@ public class DatabaseManager {
         public void removePreferenceEntry(String columnName) {
         	String sql = "ALTER TABLE preferences "
         			+ "DROP COLUMN " + columnName;
-        	
         	try (Connection connection = DriverManager.getConnection(URL);
         		 PreparedStatement stmt = connection.prepareStatement(sql)) {
         		stmt.executeUpdate();
@@ -118,6 +117,21 @@ public class DatabaseManager {
         			System.out.println("No column named " + columnName + " exists in the table");
         		else System.err.println(e.getMessage());
         	}
+        	
+        	sql = "ALTER TABLE dealbreakers "
+        	    + "DROP COLUMN " + columnName;
+        	try (Connection connection = DriverManager.getConnection(URL);
+        		 PreparedStatement stmt = connection.prepareStatement(sql)) {
+        		stmt.executeUpdate();
+        	} catch (SQLException e) {
+        		if( e.getMessage().substring(46, 60).equals("no such column") ) 
+        			System.out.println("No column named " + columnName + " exists in the table");
+        		else System.err.println(e.getMessage());
+        	}
+        	
+        	if( getTableEntryCount("preferences") != getTableEntryCount("dealbreakers") ) 
+        		throw new IllegalArgumentException("A major error occured, table values do not align. "
+        				+ "Error thrown in DatabaseManager");
         }
         
         /**

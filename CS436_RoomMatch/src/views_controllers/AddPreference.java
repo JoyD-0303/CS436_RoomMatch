@@ -58,7 +58,7 @@ public class AddPreference implements Page {
 		file1 = ReadWrite.ReadFile("/txt/descriptions.txt");
 		file2 = ReadWrite.ReadFile("/txt/preferences.txt");
 		while( file1.hasNextLine() ) {
-			vb.getChildren().add(new Label(file1.nextLine()));
+			vb.getChildren().add(new Label("Description: " + file1.nextLine()));
 			line2 = "Options: ";
 			String[] split = file2.nextLine().split(" ");
 			for(int i=0; i<split.length; i++) {

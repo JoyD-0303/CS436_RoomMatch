@@ -78,6 +78,9 @@ public class ProfileCard {
 		labels.getChildren().add(toDisplay);
 		//warningLabel.setText(warningText);
 
+		toDisplay = new Label("\n\n");
+		toDisplay.setFont(system);
+		labels.getChildren().add(toDisplay);
 	}
 
 	private String compareText(String currentValue, String otherValue, boolean isMatch) {

@@ -23,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.SortProfiles;
 import model.UserProfile;
 import model.ReadWrite;
@@ -31,6 +32,8 @@ public class MainPageView implements Page {
 	RoomMatchGUI controller;
 	UserProfile userProfile;
 	//private Menu options;
+	
+	private Font system = new Font("system", 14);
 
 	@FXML
 	private Label welcomeLabel;
@@ -121,7 +124,10 @@ public class MainPageView implements Page {
 			desc += preferences.get(i);
 			if( dealbreakers.get(i) ) desc += " (deal-breaker)";
 			desc += "\n\n";
-			yourPreferences.getChildren().add(new Label(desc));
+			Label label = new Label(desc);
+			label.setFont(system);
+			label.setWrapText(true);
+			yourPreferences.getChildren().add(label);
 		}
 
 		java.util.List<SortProfiles> matches = controller.getMatches();

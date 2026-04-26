@@ -18,28 +18,11 @@ public class UserProfile {
 	public void setArrays(ArrayList<String> preferences, ArrayList<Boolean> dealbreakers) {
 		clearPreferences();
 		
-		if( this.preferences.isEmpty() ) {
-			for(String p : preferences )
-				this.preferences.add(p);
-		} else {
-			for(int i=0; i<preferences.size(); i++) {
-				if( i < this.preferences.size() )
-					this.preferences.set(i,  preferences.get(i));
-				else this.preferences.add(preferences.get(i));
-			}
-		}
-		
-		if (this.dealbreakers.isEmpty()) {
-			for(boolean d : dealbreakers) {
-				this.dealbreakers.add(d);
-			}
-		} else {
-			for(int i=0; i<dealbreakers.size(); i++) {
-				if( i < this.dealbreakers.size() ) 
-					this.dealbreakers.set(i, dealbreakers.get(i));
-				else this.dealbreakers.add(dealbreakers.get(i));
-			}
-		}
+		for(String p : preferences )
+			this.preferences.add(p);
+	
+		for(boolean d : dealbreakers) 
+			this.dealbreakers.add(d);
 		
 		checkCritError();
 	}

@@ -11,23 +11,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="424.0" style="-fx-background-color: #FFEDCF;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.RemovePreference">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="424.0" style="-fx-background-color: #FFEDCF;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.RemovePreference">
    <children>
       <VBox prefHeight="532.0" prefWidth="424.0">
          <children>
-            <HBox prefHeight="47.0" prefWidth="424.0">
+            <HBox prefHeight="47.0" prefWidth="424.0" style="-fx-background-color: #863030;">
                <children>
                   <Label alignment="CENTER" prefHeight="47.0" prefWidth="268.0" style="-fx-background-color: #863030;" text="Choose Which Preference To Eliminate" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Arial" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="deleteOptions" prefHeight="47.0" prefWidth="158.0" />
+                  <ComboBox fx:id="deleteOptions" prefHeight="47.0" prefWidth="158.0" promptText="Preferences" style="-fx-background-color: #863030; -fx-text-base-color: white; -fx-border-color: white;" />
                </children>
             </HBox>
             <Label alignment="CENTER" prefHeight="52.0" prefWidth="426.0" style="-fx-background-color: #ED593B;" text="Current Preferences" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Arial" size="24.0" />
                </font>
             </Label>
             <ScrollPane fx:id="scrollPane" prefHeight="410.0" prefWidth="424.0">
@@ -37,18 +37,18 @@
             </ScrollPane>
             <HBox alignment="CENTER" prefHeight="42.0" prefWidth="424.0" style="-fx-background-color: #FFDEA5;">
                <children>
-                  <Button fx:id="delete" mnemonicParsing="false" onAction="#deletePreference" prefHeight="25.0" prefWidth="130.0" text="Delete">
+                  <Button fx:id="delete" mnemonicParsing="false" onAction="#deletePreference" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #ED593B;" text="Delete" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Arial" size="14.0" />
                      </font>
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Region prefHeight="50.0" prefWidth="36.0" />
-                  <Button fx:id="returnToMain" mnemonicParsing="false" onAction="#returnToMainPage" prefHeight="27.0" prefWidth="171.0" text="Return to Main Page">
+                  <Button fx:id="returnToMain" mnemonicParsing="false" onAction="#returnToMainPage" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: #ED593B;" text="Return to Main Page" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Arial" size="14.0" />
                      </font>
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

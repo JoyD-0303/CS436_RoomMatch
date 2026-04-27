@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFDEA5;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.MainPageView">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="475.0" prefWidth="800.0" style="-fx-background-color: #FFDEA5;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views_controllers.MainPageView">
    <children>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,24 +21,24 @@
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ScrollPane prefHeight="325.0" prefWidth="200.0">
+                  <ScrollPane prefHeight="325.0" prefWidth="200.0" style="-fx-background-color: #ED593B;">
                      <content>
-                        <VBox fx:id="yourPreferences" prefHeight="325.0" prefWidth="185.0" style="-fx-background-color: #FFDDCF; -fx-background-radius: 20; -fx-border-radius: 10; -fx-border-width: 10; -fx-border-color: #ed593b;" />
+                        <VBox fx:id="yourPreferences" prefHeight="325.0" prefWidth="185.0" style="-fx-background-color: #FFDDCF; -fx-border-width: 10; -fx-border-color: #ed593b;" />
                      </content>
                   </ScrollPane>
                </children>
             </VBox>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <children>
-                  <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                  <MenuBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #863030;" VBox.vgrow="ALWAYS">
                     <menus>
-                      <Menu mnemonicParsing="false" style="-fx-text-fill: white;" text="Options">
+                      <Menu mnemonicParsing="false" style="-fx-text-base-color: white;" text="Options">
                         <items>
-                          <MenuItem fx:id="option1" mnemonicParsing="false" onAction="#optionOneHandler" text="Set Prefrences" />
-                              <MenuItem fx:id="option2" mnemonicParsing="false" onAction="#optionTwoHandler" text="Delete Account" />
-                              <MenuItem fx:id="option4" mnemonicParsing="false" onAction="#optionFourHandler" text="Add Preferences" />
-                              <MenuItem fx:id="option5" mnemonicParsing="false" onAction="#optionFiveHandler" text="Remove Preferences" />
-                              <MenuItem fx:id="option3" mnemonicParsing="false" onAction="#optionThreeHandler" text="Log Out" />
+                          <MenuItem fx:id="option1" mnemonicParsing="false" onAction="#optionOneHandler" style="-fx-text-base-color: black;" text="Set Prefrences" />
+                              <MenuItem fx:id="option2" mnemonicParsing="false" onAction="#optionTwoHandler" style="-fx-text-base-color: black;" text="Delete Account" />
+                              <MenuItem fx:id="option4" mnemonicParsing="false" onAction="#optionFourHandler" style="-fx-text-base-color: black;" text="Add Preferences" />
+                              <MenuItem fx:id="option5" mnemonicParsing="false" onAction="#optionFiveHandler" style="-fx-text-base-color: black;" text="Remove Preferences" />
+                              <MenuItem fx:id="option3" mnemonicParsing="false" onAction="#optionThreeHandler" style="-fx-text-base-color: black;" text="Log Out" />
                         </items>
                       </Menu>
                     </menus>

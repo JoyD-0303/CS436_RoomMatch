@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import model.UserProfile;
 import javafx.event.ActionEvent;
@@ -33,6 +34,8 @@ public class AddPreference implements Page {
 	@FXML
 	private TextArea pOptions;
 	@FXML
+	private TextField weights;
+	@FXML
 	private Button savePreferences;
 	@FXML
 	private Button goBack;
@@ -46,7 +49,7 @@ public class AddPreference implements Page {
 		
 		try {
 			setInfo();
-		} catch (IOException e) {
+		} catch (IOException e) {  
 			e.printStackTrace();
 		}
 	}
@@ -76,6 +79,7 @@ public class AddPreference implements Page {
 	@FXML
 	private void savePreference(ActionEvent event) throws IOException {
 		String options[] = pOptions.getText().split("\n");
+		String checkWeights[] = weights.getText().trim().split(" ");
 		String preference = "";
 		
 		information.setText("");
@@ -88,6 +92,20 @@ public class AddPreference implements Page {
 			information.setText("There should be at least two options provided");
 			return;
 		}
+		if( checkWeights.length == 1 ) {
+			information.setText("The format for weights is incorrect. (correct form: 10 5)");
+			return;
+		} else {
+			try {
+				if( Integer.parseInt(checkWeights[0]) < Integer.parseInt(checkWeights[1]) ) {
+					information.setText("The first weight should be smaller than the second weight. (correct form: 10 5)");
+					return;
+				}
+			} catch(NumberFormatException e) {
+				information.setText("The format for weights is incorrect. (correct form: 10 5)");
+				return;
+			}
+		}
 		
 		ReadWrite.WriteFile("/txt/descriptions.txt", pDescription.getText());
 		
@@ -96,13 +114,19 @@ public class AddPreference implements Page {
 		}
 		ReadWrite.WriteFile("/txt/preferences.txt", preference);
 		
-		ReadWrite.WriteFile("/txt/weights.txt", "10 5");	// will be changed later
-		
+		if( weights.getText().isBlank() )
+			ReadWrite.WriteFile("/txt/weights.txt", "10 5");	// will be changed later
+		else {
+			String weight = checkWeights[0] + " " + checkWeights[1];
+			ReadWrite.WriteFile("/txt/weights.txt", weight);
+		}
+
 		controller.addPreferenceEntry(pName.getText().trim().replace(' ', '_').toLowerCase());
 		
 		pName.setText("");
 		pDescription.setText("");
 		pOptions.setText("");
+		weights.setText("");
 		information.setText("");
 		
 		controller.setToPage(View.ADDPREF, "Add preferences");

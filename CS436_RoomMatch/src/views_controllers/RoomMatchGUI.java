@@ -44,11 +44,8 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 		// Show what's in the db
 		db.printAllData();
 		
-		//db.fixTable();
-
-		
-		//db.addPreferenceEntry("major");
-		//db.removePreferenceEntry("major");
+		System.out.println(db.getTableEntryCount("preferences"));
+		System.out.println(db.getTableEntryCount("dealbreakers"));
 		
 		this.stage = stage;
 		window = new BorderPane();
@@ -163,11 +160,11 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 	public void removePreferenceEntry(String name) {
 		db.removePreferenceEntry(name);
 	}
-
+ 
 	/*
 	public void saveDealbreakers(boolean sleep, boolean cleanliness, boolean guests) {
 	    db.saveDealbreakers(currentUserId, sleep, cleanliness, guests);
-	}*/
+	}*/ 
 	
 	public void saveDealbreakers(java.util.List<Boolean> dealbreakers) {
 		//db.saveDealbreakers(currentUserId, dealbreakers.get(0), dealbreakers.get(1), dealbreakers.get(2));

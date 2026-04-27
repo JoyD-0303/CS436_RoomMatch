@@ -146,11 +146,12 @@ public class RoomMatchGUI extends Application {	// TODO: Implement loops in the 
 		db.savePreferences(currentUserId, preferences);
 	}
 
-	public void resetPreferences() {
+	public void resetPreferences() {		
 		java.util.ArrayList<String> preferences = db.getPreferences(currentUserId);
 		//userProfile.setPreferences(preferences);
 		java.util.ArrayList<Boolean> dealbreakers = db.getDealbreakers(currentUserId);
 		//userProfile.setDealbreakers(dealbreakers);
+		
 		//System.out.println(currentUserId + "\n" + preferences.toString() + "\n" + dealbreakers.toString());
 		userProfile.setArrays(preferences, dealbreakers);
 	}
